@@ -21,7 +21,7 @@
       playerHand.on('end', (function(_this) {
         return function() {
           console.log('player turn end');
-          return dealerHand.at(0).flip();
+          return dealerHand.dealerPlay();
         };
       })(this));
       playerHand.on('bust', (function(_this) {

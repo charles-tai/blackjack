@@ -36,17 +36,26 @@
       if (score > 21) {
         this.trigger('bust', this);
       }
-      console.log(this);
-      if ((16 < score && score < 21)) {
-        this.trigger('dealerStand', this);
-      }
-      if (score < 17) {
-        this.hit();
-      }
       if (hasAce) {
         return [score, score + 10];
       } else {
         return [score];
+      }
+    };
+
+    Hand.prototype.dealerPlay = function() {
+      var _ref;
+      this.at(0).flip();
+      console.log('before while loop ', this.scores()[0]);
+      while (this.scores()[0] < 17) {
+        console.log('inside the while loop', this.scores()[0]);
+        this.hit();
+      }
+      if ((16 < (_ref = this.scores()[0]) && _ref < 21)) {
+        console.log('between 16 and 21 ', this.scores()[0]);
+      }
+      if (21 < this.scores()[0]) {
+        return console.log('over21 ', this.scores());
       }
     };
 

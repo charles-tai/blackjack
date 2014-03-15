@@ -14,7 +14,7 @@ class window.App extends Backbone.Model
       # then dealer decides what to do based on his score and rules
 
       # if dealer has not flipped then flip
-      dealerHand.at(0).flip()
+      dealerHand.dealerPlay()
       # checkScore
       #
 

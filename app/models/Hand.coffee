@@ -19,8 +19,18 @@ class window.Hand extends Backbone.Collection
       score + if card.get 'revealed' then card.get 'value' else 0
     , 0
     if score > 21 then @trigger('bust', @)
-    console.log @
-    if 16 < score < 21 then @trigger('dealerStand', @)
-    if score < 17 then @hit()
+    # console.log @isDealer
+    # if @isDealer
+
     if hasAce then [score, score + 10] else [score]
 
+  dealerPlay: ->
+    @at(0).flip()
+    console.log 'before while loop ', @scores()[0]
+    while @scores()[0] < 17
+      console.log 'inside the while loop', @scores()[0]
+      @hit()
+    if 16 < @scores()[0] < 21 then console.log 'between 16 and 21 ', @scores()[0]
+    #then @trigger('dealerStand', @)
+    # console.log 'between 16 and 21 ', @scores()
+    if 21 < @scores()[0] then console.log 'over21 ', @scores()
