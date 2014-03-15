@@ -6,7 +6,7 @@ class window.Hand extends Backbone.Collection
 
   hit: -> @add(@deck.pop()).last()
 
-  stand: -> @trigger('end', @)
+  stand: -> @trigger('endTurn', @)
 
   scores: ->
     # The scores are an array of potential scores.
@@ -26,11 +26,7 @@ class window.Hand extends Backbone.Collection
 
   dealerPlay: ->
     @at(0).flip()
-    console.log 'before while loop ', @scores()[0]
     while @scores()[0] < 17
-      console.log 'inside the while loop', @scores()[0]
       @hit()
-    if 16 < @scores()[0] < 21 then console.log 'between 16 and 21 ', @scores()[0]
-    #then @trigger('dealerStand', @)
-    # console.log 'between 16 and 21 ', @scores()
-    if 21 < @scores()[0] then console.log 'over21 ', @scores()
+    if 16 < @scores()[0] < 21 then @stand()
+    # if 21 < @scores()[0] then @trigger('bust', @)

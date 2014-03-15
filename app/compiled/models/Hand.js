@@ -22,7 +22,7 @@
     };
 
     Hand.prototype.stand = function() {
-      return this.trigger('end', this);
+      return this.trigger('endTurn', this);
     };
 
     Hand.prototype.scores = function() {
@@ -46,16 +46,11 @@
     Hand.prototype.dealerPlay = function() {
       var _ref;
       this.at(0).flip();
-      console.log('before while loop ', this.scores()[0]);
       while (this.scores()[0] < 17) {
-        console.log('inside the while loop', this.scores()[0]);
         this.hit();
       }
       if ((16 < (_ref = this.scores()[0]) && _ref < 21)) {
-        console.log('between 16 and 21 ', this.scores()[0]);
-      }
-      if (21 < this.scores()[0]) {
-        return console.log('over21 ', this.scores());
+        return this.stand();
       }
     };
 

@@ -18,7 +18,7 @@
       deck = this.get('deck');
       playerHand = this.get('playerHand');
       dealerHand = this.get('dealerHand');
-      playerHand.on('end', (function(_this) {
+      playerHand.on('endTurn', (function(_this) {
         return function() {
           console.log('player turn end');
           return dealerHand.dealerPlay();
@@ -26,14 +26,35 @@
       })(this));
       playerHand.on('bust', (function(_this) {
         return function() {
-          return console.log('playerLose');
+          return console.log('player lost');
         };
       })(this));
-      return dealerHand.on('end', (function(_this) {
-        return function(playerOrDealer) {
-          return console.log('player?', playerOrDealer);
+      dealerHand.on('bust', (function(_this) {
+        return function() {
+          return console.log('dealer bust');
         };
       })(this));
+      return dealerHand.on('endTurn', (function(_this) {
+        return function() {
+          console.log('dealer turn ended');
+          return _this.checkScore();
+        };
+      })(this));
+    };
+
+    App.prototype.checkScore = function() {
+      var dealerHand, dealerScore, playerHand, playerScore;
+      playerHand = this.get('playerHand');
+      dealerHand = this.get('dealerHand');
+      playerScore = playerHand.scores()[0];
+      dealerScore = dealerHand.scores()[0];
+      if (playerScore === dealerScore) {
+        return console.log('draw');
+      } else if (playerScore > dealerScore) {
+        return console.log('player wins');
+      } else {
+        return console.log('dealer wins');
+      }
     };
 
     return App;

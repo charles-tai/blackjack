@@ -8,18 +8,26 @@ class window.App extends Backbone.Model
     deck = @get 'deck'
     playerHand = @get 'playerHand'
     dealerHand = @get 'dealerHand'
-    playerHand.on 'end', =>
+
+    # Event listeners
+    playerHand.on 'endTurn', =>
       console.log 'player turn end'
-      #console.log('end event triggered on App');
-      # then dealer decides what to do based on his score and rules
-
-      # if dealer has not flipped then flip
       dealerHand.dealerPlay()
-      # checkScore
-      #
-
-
     playerHand.on 'bust', =>
-      console.log('playerLose')
-    dealerHand.on 'end', (playerOrDealer) =>
-      console.log 'player?', playerOrDealer
+      console.log 'player lost'
+
+    dealerHand.on 'bust', () =>
+      console.log 'dealer bust'
+    dealerHand.on 'endTurn', () =>
+      console.log 'dealer turn ended'
+      @checkScore()
+
+  checkScore: ->
+    playerHand = @get 'playerHand'
+    dealerHand = @get 'dealerHand'
+    playerScore = playerHand.scores()[0]
+    dealerScore = dealerHand.scores()[0]
+
+    if playerScore == dealerScore then console.log 'draw'
+    else if playerScore > dealerScore then console.log 'player wins'
+    else console.log 'dealer wins'
