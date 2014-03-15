@@ -21,6 +21,10 @@
       return this.add(this.deck.pop()).last();
     };
 
+    Hand.prototype.stand = function() {
+      return this.trigger('end', this);
+    };
+
     Hand.prototype.scores = function() {
       var hasAce, score;
       hasAce = this.reduce(function(memo, card) {
@@ -29,6 +33,16 @@
       score = this.reduce(function(score, card) {
         return score + (card.get('revealed') ? card.get('value') : 0);
       }, 0);
+      if (score > 21) {
+        this.trigger('bust', this);
+      }
+      console.log(this);
+      if ((16 < score && score < 21)) {
+        this.trigger('dealerStand', this);
+      }
+      if (score < 17) {
+        this.hit();
+      }
       if (hasAce) {
         return [score, score + 10];
       } else {

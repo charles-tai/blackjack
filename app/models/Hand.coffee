@@ -6,6 +6,8 @@ class window.Hand extends Backbone.Collection
 
   hit: -> @add(@deck.pop()).last()
 
+  stand: -> @trigger('end', @)
+
   scores: ->
     # The scores are an array of potential scores.
     # Usually, that array contains one element. That is the only score.
@@ -16,4 +18,9 @@ class window.Hand extends Backbone.Collection
     score = @reduce (score, card) ->
       score + if card.get 'revealed' then card.get 'value' else 0
     , 0
+    if score > 21 then @trigger('bust', @)
+    console.log @
+    if 16 < score < 21 then @trigger('dealerStand', @)
+    if score < 17 then @hit()
     if hasAce then [score, score + 10] else [score]
+
