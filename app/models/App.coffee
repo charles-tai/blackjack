@@ -16,11 +16,13 @@ class window.App extends Backbone.Model
     playerHand.on 'bust', =>
       console.log 'player lost'
 
-    dealerHand.on 'bust', () =>
+    dealerHand.on 'bust', =>
       console.log 'dealer bust'
-    dealerHand.on 'endTurn', () =>
+    dealerHand.on 'endTurn', =>
       console.log 'dealer turn ended'
       @checkScore()
+    dealerHand.on 'blackJack', =>
+      console.log 'black jack!'
 
   checkScore: ->
     playerHand = @get 'playerHand'

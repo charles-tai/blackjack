@@ -1,0 +1,25 @@
+App
+[x] creates new deck
+[x] creates dealer hand and player hand
+[x]  Event listeners that checks for end or bust
+
+App View
+[x] event listener for hit and stand
+[x] renders the whole application (hit and stand button) and hands
+
+Hand
+[x] can hit or stand and calculate score
+[x] dealer play logic
+
+HandView
+[x] listens for add remove or change on the collection and renders changes
+
+Card
+[x] set suit and rank based on value
+[x] reveals itself
+
+Card View
+[x] listens for changes in the card model and renders
+
+Main.coffee
+[x] instantiates AppView and sets App instance as its model

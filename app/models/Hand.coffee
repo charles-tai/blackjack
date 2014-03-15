@@ -18,15 +18,26 @@ class window.Hand extends Backbone.Collection
     score = @reduce (score, card) ->
       score + if card.get 'revealed' then card.get 'value' else 0
     , 0
-    if score > 21 then @trigger('bust', @)
     # console.log @isDealer
     # if @isDealer
+    if not @isDealer
+      if score > 21 then @trigger('bust', @)
+    if hasAce then [score, score + 10] else [score, score]
 
-    if hasAce then [score, score + 10] else [score]
-
-  dealerPlay: ->
-    @at(0).flip()
-    while @scores()[0] < 17
+  dealerPlay: (index,flag)=>
+    # if flag then @set 'one', true
+    console.log(@)
+    debugger
+    index = index or 1
+    if not flag then @at(0).flip()
+    while @scores()[index] < 17
       @hit()
-    if 16 < @scores()[0] < 21 then @stand()
-    # if 21 < @scores()[0] then @trigger('bust', @)
+    if 16 < @scores()[index] < 21 then @stand()
+    if @scores()[index] == 21 then @trigger('blackJack',@)
+    if 21 < @scores()[index]
+      if not flag then @dealerPlay(0,'on')
+      else @trigger('bust', @)
+
+
+
+
