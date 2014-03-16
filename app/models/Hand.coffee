@@ -24,19 +24,37 @@ class window.Hand extends Backbone.Collection
       if score > 21 then @trigger('bust', @)
     if hasAce then [score, score + 10] else [score, score]
 
-  dealerPlay: (index,flag)=>
+
+  dealerPlay: (friend,flag)=>
     # if flag then @set 'one', true
-    console.log(@)
-    debugger
-    index = index or 1
+    if friend == undefined then friend = 1
     if not flag then @at(0).flip()
-    while @scores()[index] < 17
+    console.log flag
+    console.log friend
+    console.log @scores()
+    console.log @scores()[friend]
+    while @scores()[friend] < 17
       @hit()
-    if 16 < @scores()[index] < 21 then @stand()
-    if @scores()[index] == 21 then @trigger('blackJack',@)
-    if 21 < @scores()[index]
-      if not flag then @dealerPlay(0,'on')
+    if 16 < @scores()[friend] < 21
+      @stand()
+    if @scores()[friend] == 21 then @trigger('blackJack',@)
+    if 21 < @scores()[friend]
+      if not flag then return @dealerPlay(0,'on')
       else @trigger('bust', @)
+    # @maxScore(@scores()[friend])
+
+
+  maxScore: ()->
+    if @scores()[0] == @scores()[1] then return @scores()[1]
+    # return the bigger of the 2 scores, unless the bigger score is over 21
+
+    if @scores()[1] > @scores()[0]
+      if not scores()[1] > 21
+        return scores()[1]
+      return scores()[0]
+
+
+
 
 
 

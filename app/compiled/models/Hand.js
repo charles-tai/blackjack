@@ -47,29 +47,45 @@
       }
     };
 
-    Hand.prototype.dealerPlay = function(index, flag) {
+    Hand.prototype.dealerPlay = function(friend, flag) {
       var _ref;
-      console.log(this);
-      debugger;
-      index = index || 1;
+      if (friend === void 0) {
+        friend = 1;
+      }
       if (!flag) {
         this.at(0).flip();
       }
-      while (this.scores()[index] < 17) {
+      console.log(flag);
+      console.log(friend);
+      console.log(this.scores());
+      console.log(this.scores()[friend]);
+      while (this.scores()[friend] < 17) {
         this.hit();
       }
-      if ((16 < (_ref = this.scores()[index]) && _ref < 21)) {
+      if ((16 < (_ref = this.scores()[friend]) && _ref < 21)) {
         this.stand();
       }
-      if (this.scores()[index] === 21) {
+      if (this.scores()[friend] === 21) {
         this.trigger('blackJack', this);
       }
-      if (21 < this.scores()[index]) {
+      if (21 < this.scores()[friend]) {
         if (!flag) {
           return this.dealerPlay(0, 'on');
         } else {
           return this.trigger('bust', this);
         }
+      }
+    };
+
+    Hand.prototype.maxScore = function() {
+      if (this.scores()[0] === this.scores()[1]) {
+        return this.scores()[1];
+      }
+      if (this.scores()[1] > this.scores()[0]) {
+        if (!scores()[1] > 21) {
+          return scores()[1];
+        }
+        return scores()[0];
       }
     };
 

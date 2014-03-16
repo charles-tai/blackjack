@@ -13,7 +13,7 @@
     Deck.prototype.model = Card;
 
     Deck.prototype.initialize = function() {
-      return this.add(_([0, 5, 18, 1, 13, 6, 7, 8]).reverse().map(function(card) {
+      return this.add(_(_.range(0, 52)).shuffle().map(function(card) {
         return new Card({
           rank: card % 13,
           suit: Math.floor(card / 13)
