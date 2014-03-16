@@ -78,14 +78,18 @@
     };
 
     Hand.prototype.maxScore = function() {
+      if (this.scores()[1] === 21) {
+        this.trigger('blackJack', this);
+        return this.scores()[1];
+      }
       if (this.scores()[0] === this.scores()[1]) {
         return this.scores()[1];
       }
       if (this.scores()[1] > this.scores()[0]) {
-        if (!scores()[1] > 21) {
-          return scores()[1];
+        if (!(this.scores()[1] > 21)) {
+          return this.scores()[1];
         }
-        return scores()[0];
+        return this.scores()[0];
       }
     };
 

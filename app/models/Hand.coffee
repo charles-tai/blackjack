@@ -45,13 +45,16 @@ class window.Hand extends Backbone.Collection
 
 
   maxScore: ()->
+    if @scores()[1] == 21
+      @trigger('blackJack',@)
+      return @scores()[1]
     if @scores()[0] == @scores()[1] then return @scores()[1]
     # return the bigger of the 2 scores, unless the bigger score is over 21
 
     if @scores()[1] > @scores()[0]
-      if not scores()[1] > 21
-        return scores()[1]
-      return scores()[0]
+      if not (@scores()[1] > 21)
+        return @scores()[1]
+      return @scores()[0]
 
 
 

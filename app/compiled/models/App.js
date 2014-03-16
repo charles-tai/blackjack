@@ -51,8 +51,8 @@
       var dealerHand, dealerScore, playerHand, playerScore;
       playerHand = this.get('playerHand');
       dealerHand = this.get('dealerHand');
-      playerScore = playerHand.scores()[0];
-      dealerScore = dealerHand.scores()[0];
+      playerScore = playerHand.maxScore();
+      dealerScore = dealerHand.maxScore();
       if (playerScore === dealerScore) {
         return console.log('draw');
       } else if (playerScore > dealerScore) {

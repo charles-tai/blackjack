@@ -27,8 +27,8 @@ class window.App extends Backbone.Model
   checkScore: ->
     playerHand = @get 'playerHand'
     dealerHand = @get 'dealerHand'
-    playerScore = playerHand.scores()[0]
-    dealerScore = dealerHand.scores()[0]
+    playerScore = playerHand.maxScore()
+    dealerScore = dealerHand.maxScore()
 
     if playerScore == dealerScore then console.log 'draw'
     else if playerScore > dealerScore then console.log 'player wins'
